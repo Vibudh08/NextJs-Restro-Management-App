@@ -1,26 +1,32 @@
 "use client";
 
 import { useState } from "react";
-import RestaurantLogin from "../_components/restaurantLogin";
-import RestaurantRegister from "../_components/restaurantRegister";
+import RestaurantLogin from "../_components/RestaurantLogin";
+import RestaurantRegister from "../_components/RestaurantRegister";
+import RestaurantHeader from "../_components/RestaurantHeader";
+import RestaurantFooter from "../_components/RestaurantFooter";
 
 export default function RestaurantAuth() {
   const [login, setLogin] = useState(true);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md text-center">
-        <h1 className="text-2xl font-bold mb-6">Restaurant Login / SignUp</h1>
+    <div>
+      <RestaurantHeader/>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md text-center">
+          <h1 className="text-2xl font-bold mb-6">Restaurant Login / SignUp</h1>
 
-        {login ? <RestaurantLogin /> : <RestaurantRegister />}
+          {login ? <RestaurantLogin /> : <RestaurantRegister />}
 
-        <button
-          onClick={() => setLogin(!login)}
-          className="mt-6 w-full border border-gray-300 bg-gray-100 text-gray-700 py-2 rounded-lg hover:bg-gray-200 transition"
-        >
-          {login ? "Don't have an account?" : "Already have an account?"}
-        </button>
+          <button
+            onClick={() => setLogin(!login)}
+            className="mt-6 w-full border border-gray-300 bg-gray-100 text-gray-700 py-2 rounded-lg hover:bg-gray-200 transition"
+          >
+            {login ? "Don't have an account?" : "Already have an account?"}
+          </button>
+        </div>
       </div>
+      <RestaurantFooter/>
     </div>
   );
 }
