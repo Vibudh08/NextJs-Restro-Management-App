@@ -4,7 +4,6 @@ const restaurantModel = new mongoose.Schema({
   name: String,
   email: String,
   password: String,
-  cpassword: String,
   city: String,
   address: String,
   mobile: Number,
