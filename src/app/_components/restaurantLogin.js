@@ -34,8 +34,11 @@ const RestaurantLogin = () => {
       );
       if (response.data.success == true) {
         alert("Login Successfull");
-        localStorage.setItem("restaurant", JSON.stringify(email));
-        router.push("restaurant/dashboard");
+        // destructure result safely and remove password
+        const { password, ...restData } = response.data.result;
+
+        localStorage.setItem("restaurant", JSON.stringify(restData));
+        router.push("/restaurant/dashboard");
       } else {
         alert("Email and password is wrong");
       }

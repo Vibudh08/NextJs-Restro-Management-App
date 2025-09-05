@@ -10,7 +10,6 @@ const RestaurantRegister = () => {
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
   const [mobile, setMobile] = useState("");
-
   const [errors, setErrors] = useState({});
 
   const router = useRouter();
@@ -58,7 +57,7 @@ const RestaurantRegister = () => {
       if (response.data.success == true) {
         alert("Restaurant registration successful");
 
-        const { password, cpassword, ...restData } = userData;
+        const { password, cpassword, ...restData } = response.data.result;
         localStorage.setItem("restaurant", JSON.stringify(restData));
 
         router.push("/restaurant/dashboard");
