@@ -14,6 +14,8 @@ const FoodItemList = () => {
         "http://localhost:3000/api/restaurant/food/foodList",
         { resto_id }
       );
+      console.log(data);
+
       setDetails(data);
     }
   };
@@ -21,6 +23,16 @@ const FoodItemList = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleDelete = async (id) => {
+    const result = await axios.delete(
+      `http://localhost:3000/api/restaurant/food/foodList/${id}`
+    );
+    if(result){
+      fetchData();
+    }
+  };
+
   return (
     <div className="overflow-x-auto bg-white rounded-2xl shadow-lg">
       <table className="w-full text-left border-collapse">
@@ -43,6 +55,7 @@ const FoodItemList = () => {
                   index % 2 === 0 ? "bg-white" : "bg-gray-50"
                 } hover:bg-gray-100 transition`}
               >
+                <td className="hidden">{item._id}</td>
                 <td className="p-3 border-b text-gray-600">{index + 1}</td>
                 <td className="p-3 border-b font-medium text-gray-800">
                   {item.name}
@@ -64,7 +77,7 @@ const FoodItemList = () => {
                       <Pencil size={18} />
                     </button>
                     <button className="p-2 rounded-full hover:bg-red-100 text-red-600 transition">
-                      <Trash2 size={18} />
+                      <Trash2 size={18} onClick={()=>handleDelete(item._id)} />
                     </button>
                   </div>
                 </td>

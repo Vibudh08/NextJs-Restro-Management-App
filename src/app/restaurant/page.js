@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import RestaurantLogin from "../_components/RestaurantLogin";
-import RestaurantRegister from "../_components/RestaurantRegister";
+import RestaurantLogin from "../_components/restaurantLogin";
+import RestaurantRegister from "../_components/restaurantRegister";
 import RestaurantHeader from "../_components/RestaurantHeader";
 import RestaurantFooter from "../_components/RestaurantFooter";
 

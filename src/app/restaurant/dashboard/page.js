@@ -6,7 +6,6 @@ import RestaurantHeader from "@/app/_components/RestaurantHeader";
 import FoodItemList from "@/app/_components/FoodItemList";
 
 const Page = () => {
-  const [details, setDetails] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
   // handle new item added
