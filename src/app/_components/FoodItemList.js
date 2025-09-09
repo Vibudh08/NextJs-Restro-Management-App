@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Pencil, Trash2 } from "lucide-react";
-const FoodItemList = ({onEdit}) => {
+const FoodItemList = ({ onEdit }) => {
   const [details, setDetails] = useState([]);
 
   // fetch food items
@@ -23,9 +23,9 @@ const FoodItemList = ({onEdit}) => {
     fetchData();
   }, []);
 
-  const handleEdit = async (id)=>{
-    onEdit(id)
-  }
+  const handleEdit = async (id) => {
+    onEdit(id);
+  };
 
   const handleDelete = async (id) => {
     const result = await axios.delete(

@@ -65,12 +65,24 @@ const AddFoodItem = ({ id, onItemAdded }) => {
     }
   }, [id]);
 
+  const handleUpdate = async (id) => {
+    const foodData = { name, price, image, desc };
+    const result = await axios.post(
+      `http://localhost:3000/api/restaurant/food/foodList/${id}`,
+      foodData
+    );
+    console.log(result);
+    if (result) {
+      alert("Food item updated successfully");
+    }
+  };
+
   return (
     <div className="max-w-lg mx-auto p-8 bg-white rounded-2xl shadow-lg border border-gray-100">
       <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">
         {id ? "🍽️ Update Food Item" : "🍽️ Add Food Item"}
       </h2>
-      <form className="space-y-5" onSubmit={handleSubmit}>
+      <form className="space-y-5">
         {/* Food Name */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -143,12 +155,21 @@ const AddFoodItem = ({ id, onItemAdded }) => {
         </div>
 
         {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 rounded-xl font-medium hover:from-blue-700 hover:to-blue-800 shadow-md transition-all"
-        >
-          Submit
-        </button>
+        {id ? (
+          <button
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 rounded-xl font-medium hover:from-blue-700 hover:to-blue-800 shadow-md transition-all"
+            onClick={()=>handleUpdate(id)}
+          >
+            Submit
+          </button>
+        ) : (
+          <button
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 rounded-xl font-medium hover:from-blue-700 hover:to-blue-800 shadow-md transition-all"
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
+        )}
       </form>
     </div>
   );
