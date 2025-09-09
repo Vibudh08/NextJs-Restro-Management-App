@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Pencil, Trash2 } from "lucide-react";
-const FoodItemList = () => {
+const FoodItemList = ({onEdit}) => {
   const [details, setDetails] = useState([]);
 
   // fetch food items
@@ -15,7 +15,6 @@ const FoodItemList = () => {
         { resto_id }
       );
       console.log(data);
-
       setDetails(data);
     }
   };
@@ -24,11 +23,16 @@ const FoodItemList = () => {
     fetchData();
   }, []);
 
+  const handleEdit = async (id)=>{
+    onEdit(id)
+  }
+
   const handleDelete = async (id) => {
     const result = await axios.delete(
       `http://localhost:3000/api/restaurant/food/foodList/${id}`
     );
-    if(result){
+    if (result) {
+      alert("Food item deleted.");
       fetchData();
     }
   };
@@ -74,10 +78,13 @@ const FoodItemList = () => {
                 <td className="p-3 border-b text-center">
                   <div className="flex justify-center gap-1">
                     <button className="p-2 rounded-full hover:bg-blue-100 text-blue-600 transition">
-                      <Pencil size={18} />
+                      <Pencil size={18} onClick={() => handleEdit(item._id)} />
                     </button>
                     <button className="p-2 rounded-full hover:bg-red-100 text-red-600 transition">
-                      <Trash2 size={18} onClick={()=>handleDelete(item._id)} />
+                      <Trash2
+                        size={18}
+                        onClick={() => handleDelete(item._id)}
+                      />
                     </button>
                   </div>
                 </td>

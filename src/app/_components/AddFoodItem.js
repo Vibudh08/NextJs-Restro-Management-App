@@ -1,8 +1,8 @@
 "use client";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const AddFoodItem = ({ onItemAdded }) => {
+const AddFoodItem = ({ id, onItemAdded }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
@@ -41,17 +41,34 @@ const AddFoodItem = ({ onItemAdded }) => {
       console.log(data);
     }
     if (onItemAdded) onItemAdded();
-    // clear fields after submit
+
     setName("");
     setPrice("");
     setImage("");
     setDesc("");
   };
 
+  useEffect(() => {
+    if (id) {
+      const fetchItem = async () => {
+        const result = await axios.get(
+          `http://localhost:3000/api/restaurant/food/foodList/${id}`
+        );
+        console.log(result.data);
+        let data = result.data;
+        setName(data.name);
+        setDesc(data.desc);
+        setImage(data.image);
+        setPrice(data.price);
+      };
+      fetchItem();
+    }
+  }, [id]);
+
   return (
     <div className="max-w-lg mx-auto p-8 bg-white rounded-2xl shadow-lg border border-gray-100">
       <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">
-        🍽️ Add Food Item
+        {id ? "🍽️ Update Food Item" : "🍽️ Add Food Item"}
       </h2>
       <form className="space-y-5" onSubmit={handleSubmit}>
         {/* Food Name */}

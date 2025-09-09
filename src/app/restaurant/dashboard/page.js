@@ -7,11 +7,12 @@ import FoodItemList from "@/app/_components/FoodItemList";
 
 const Page = () => {
   const [showForm, setShowForm] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
 
   // handle new item added
   const handleItemAdded = async () => {
-    await fetchData();
     setShowForm(false);
+    setSelectedId(null);
   };
 
   return (
@@ -24,10 +25,15 @@ const Page = () => {
 
         {showForm ? (
           <div className="mt-6 bg-white ">
-            <AddFoodItem onItemAdded={handleItemAdded} />
+            <AddFoodItem id={selectedId} onItemAdded={handleItemAdded} />
           </div>
         ) : (
-          <FoodItemList />
+          <FoodItemList
+            onEdit={(id) => {
+              setSelectedId(id);
+              setShowForm(true);
+            }}
+          />
         )}
 
         {/* Add New Item Button and Back Button */}
