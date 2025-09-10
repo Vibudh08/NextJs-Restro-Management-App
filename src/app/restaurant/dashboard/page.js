@@ -1,19 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Plus, ArrowLeft } from "lucide-react";
 import AddFoodItem from "@/app/_components/AddFoodItem";
 import RestaurantHeader from "@/app/_components/RestaurantHeader";
 import FoodItemList from "@/app/_components/FoodItemList";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [showForm, setShowForm] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const router = useRouter();
 
   // handle new item added
   const handleItemAdded = async () => {
     setShowForm(false);
     setSelectedId(null);
   };
+
+  useEffect(()=>{
+    const data = localStorage.getItem("restaurant")
+    if(!data){
+      router.push("/restaurant")      
+    }
+  },[])
 
   return (
     <>

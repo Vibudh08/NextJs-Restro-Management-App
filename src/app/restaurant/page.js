@@ -1,17 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import RestaurantLogin from "../_components/restaurantLogin";
-import RestaurantRegister from "../_components/restaurantRegister";
+import { useEffect, useState } from "react";
+import RestaurantLogin from "../_components/RestaurantLogin";
+import RestaurantRegister from "../_components/RestaurantRegister";
 import RestaurantHeader from "../_components/RestaurantHeader";
 import RestaurantFooter from "../_components/RestaurantFooter";
+import { useRouter } from "next/navigation";
 
 export default function RestaurantAuth() {
+  const router = useRouter();
   const [login, setLogin] = useState(true);
+  useEffect(() => {
+    const data = localStorage.getItem("restaurant");
+    if (data) {
+      router.push("/restaurant/dashboard");
+    }
+  }, []);
 
   return (
     <div>
-      <RestaurantHeader/>
+      <RestaurantHeader />
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md text-center">
           <h1 className="text-2xl font-bold mb-6">Restaurant Login / SignUp</h1>
@@ -26,7 +34,7 @@ export default function RestaurantAuth() {
           </button>
         </div>
       </div>
-      <RestaurantFooter/>
+      <RestaurantFooter />
     </div>
   );
 }
