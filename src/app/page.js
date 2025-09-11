@@ -5,18 +5,22 @@ import CustomerHeader from "./_components/CustomerHeader";
 import RestaurantFooter from "./_components/RestaurantFooter";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Select, Input } from "antd";
+import { Select, Input, Card } from "antd";
+import { useRouter } from "next/navigation";
 
 const { Option } = Select;
 
 export default function Home() {
+  const [queryCityName, setQueryCityName] = useState();
+  const [queryRestaurantName, setQueryRestaqurantName] = useState();
   const [cityName, setCityName] = useState([]);
-
+  const [restaurants, setRestaurants] = useState();
+  const router = useRouter();
+  
   const dataFetch = async () => {
     let result = await axios.get(
       "http://localhost:3000/api/customer/locations"
     );
-    console.log(result.data);
     setCityName(result.data);
   };
 
@@ -24,40 +28,54 @@ export default function Home() {
     dataFetch();
   }, []);
 
+  const fetchRestaurant = async () => {
+    let url = "http://localhost:3000/api/customer";
+    const params = new URLSearchParams();
+
+    if (queryCityName) params.append("location", queryCityName);
+    if (queryRestaurantName) params.append("restaurant", queryRestaurantName);
+
+    if (params.toString()) {
+      url += "?" + params.toString();
+    }
+
+    const result = await axios.get(url);
+    console.log(result.data);
+    setRestaurants(result.data);
+  };
+
+  useEffect(() => {
+    fetchRestaurant();
+  }, [queryCityName, queryRestaurantName]);
+
   return (
-    <main className="relative flex flex-col min-h-screen">
-      {/* Background Image */}
-      <div className="absolute inset-0">
+    <main className="relative h-screen overflow-hidden">
+      {/* Fixed Background */}
+      <div className="absolute inset-0 -z-10">
         <Image
           src="/food.jpg"
           alt="Food background"
           fill
-          className="object-cover -z-10"
+          className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-black/50 -z-10" />
+        <div className="absolute inset-0 bg-black/50" />
       </div>
 
       {/* Header */}
       <CustomerHeader />
 
-      {/* Centered Content */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center mt-[-40px] space-y-6">
+      {/* Fixed Search Section */}
+      <div className="absolute top-[20%] left-1/2 -translate-x-1/2 z-10 w-[700px] max-md:w-[95%] flex flex-col items-center space-y-6">
         <h1 className="text-white text-4xl font-bold">Food Delivery App</h1>
 
-        {/* Search Bar */}
-        <div className="flex w-[700px] bg-white rounded-lg shadow-md overflow-hidden backdrop-blur-sm p-2 gap-2">
-          {/* Antd Select */}
+        <div className="flex w-full bg-white rounded-lg shadow-md overflow-hidden p-2 gap-2">
           <Select
+            className="w-[200px] max-md:w-[120px]"
             placeholder="Select Place"
-            style={{ width: 200 }}
             showSearch
             allowClear
-            styles={{
-              popup: {
-                root: { maxHeight: 200, overflowY: "auto" },
-              },
-            }}
+            onChange={(value) => setQueryCityName(value)}
           >
             {cityName.map((city, index) => (
               <Option key={index} value={city}>
@@ -66,13 +84,53 @@ export default function Home() {
             ))}
           </Select>
 
-          {/* Input Field */}
-          <Input placeholder="Enter food or restaurant" className="flex-1" />
+          <Input
+            placeholder="Enter food or restaurant"
+            className="flex-1"
+            onChange={(e) => setQueryRestaqurantName(e.target.value)}
+          />
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="relative z-10">
+      {/* Scrollable Cards Section */}
+      <div className="absolute top-[39%] left-0 right-0 bottom-0 overflow-y-auto px-6 scrollbar-hide">
+        {restaurants && restaurants.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto pb-20">
+            {restaurants.map((res, i) => (
+              <Card
+                key={i}
+                title={<span className="font-bold text-lg">{res.name}</span>}
+                variant={false}
+                className="shadow-lg rounded-2xl cursor-pointer hover:shadow-2xl"
+                onClick={()=>router.push("/restaurant/details/"+ res.name)}
+              >
+                <p>
+                  <span className="font-semibold">City:</span> {res.city}
+                </p>
+                <p>
+                  <span className="font-semibold">Address:</span> {res.address}
+                </p>
+                <p>
+                  <span className="font-semibold">Mobile:</span> {res.mobile}
+                </p>
+                <p>
+                  <span className="font-semibold">Email:</span> {res.email}
+                </p>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center mt-20 space-y-4 h-full">
+            <h2 className="text-3xl font-bold text-white">Oops!</h2>
+            <p className="text-white text-lg">
+              No restaurants found.
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Footer (can stay fixed at bottom or move inside scroll) */}
+      <div className="absolute bottom-0 w-full">
         <RestaurantFooter />
       </div>
     </main>
