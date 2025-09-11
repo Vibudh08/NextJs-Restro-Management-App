@@ -158,7 +158,7 @@ const AddFoodItem = ({ id, onItemAdded }) => {
         {id ? (
           <button
             className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 rounded-xl font-medium hover:from-blue-700 hover:to-blue-800 shadow-md transition-all"
-            onClick={()=>handleUpdate(id)}
+            onClick={() => handleUpdate(id)}
           >
             Submit
           </button>
