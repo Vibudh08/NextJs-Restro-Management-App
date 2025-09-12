@@ -19,18 +19,6 @@ const CustomerHeader = () => {
             href="/"
             className="text-gray-700 hover:text-blue-600 transition"
           >
-            Login
-          </Link>
-          <Link
-            href="/"
-            className="text-gray-700 hover:text-blue-600 transition"
-          >
-            Cart
-          </Link>
-          <Link
-            href="/"
-            className="text-gray-700 hover:text-blue-600 transition"
-          >
             Add Restaurant
           </Link>
         </nav>

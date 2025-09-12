@@ -15,8 +15,9 @@ export default function Home() {
   const [queryRestaurantName, setQueryRestaqurantName] = useState();
   const [cityName, setCityName] = useState([]);
   const [restaurants, setRestaurants] = useState();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  
+
   const dataFetch = async () => {
     let result = await axios.get(
       "http://localhost:3000/api/customer/locations"
@@ -29,6 +30,7 @@ export default function Home() {
   }, []);
 
   const fetchRestaurant = async () => {
+    setLoading(true);
     let url = "http://localhost:3000/api/customer";
     const params = new URLSearchParams();
 
@@ -42,6 +44,7 @@ export default function Home() {
     const result = await axios.get(url);
     console.log(result.data);
     setRestaurants(result.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -94,37 +97,41 @@ export default function Home() {
 
       {/* Scrollable Cards Section */}
       <div className="absolute top-[39%] left-0 right-0 bottom-0 overflow-y-auto px-6 scrollbar-hide">
-        {restaurants && restaurants.length > 0 ? (
+        {loading ? (
+          <p className="text-center text-3xl font-bold text-white mt-20">
+            Loading...
+          </p>
+        ) : restaurants && restaurants.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto pb-20">
-            {restaurants.map((res, i) => (
-              <Card
-                key={i}
-                title={<span className="font-bold text-lg">{res.name}</span>}
-                variant={false}
-                className="shadow-lg rounded-2xl cursor-pointer hover:shadow-2xl"
-                onClick={()=>router.push("/restaurant/details/"+ res.name)}
-              >
-                <p>
-                  <span className="font-semibold">City:</span> {res.city}
-                </p>
-                <p>
-                  <span className="font-semibold">Address:</span> {res.address}
-                </p>
-                <p>
-                  <span className="font-semibold">Mobile:</span> {res.mobile}
-                </p>
-                <p>
-                  <span className="font-semibold">Email:</span> {res.email}
-                </p>
-              </Card>
-            ))}
+            {restaurants &&
+              restaurants.map((res, i) => (
+                <Card
+                  key={i}
+                  title={<span className="font-bold text-lg">{res.name}</span>}
+                  variant={false}
+                  className="shadow-lg rounded-2xl cursor-pointer hover:shadow-2xl"
+                  onClick={() => router.push("/restaurant/details/" + res._id)}
+                >
+                  <p>
+                    <span className="font-semibold">City:</span> {res.city}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Address:</span>{" "}
+                    {res.address}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Mobile:</span> {res.mobile}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Email:</span> {res.email}
+                  </p>
+                </Card>
+              ))}
           </div>
         ) : (
           <div className="flex flex-col items-center mt-20 space-y-4 h-full">
             <h2 className="text-3xl font-bold text-white">Oops!</h2>
-            <p className="text-white text-lg">
-              No restaurants found.
-            </p>
+            <p className="text-white text-lg">No restaurants found.</p>
           </div>
         )}
       </div>
