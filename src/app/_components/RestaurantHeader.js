@@ -5,21 +5,23 @@ import { useRouter } from "next/navigation";
 
 export default function RestaurantHeader() {
   const [details, setDetails] = useState();
-  const router = useRouter()
+  const router = useRouter();
   useEffect(() => {
     const data = localStorage.getItem("restaurant");
     setDetails(data);
   }, []);
-  const handleLogout= ()=>{
-    alert("Logout Successfull")
-    localStorage.removeItem("restaurant")
-    router.push("/restaurant")
-  }
+  const handleLogout = () => {
+    alert("Logout Successfull");
+    localStorage.removeItem("restaurant");
+    router.push("/restaurant");
+  };
   return (
     <header className="bg-white shadow-md">
       <div className=" mx-auto px-8 flex justify-between items-center">
         {/* Logo */}
-        <img src="/app_logo.png" className="w-32" alt="" />
+        <Link href="/">
+          <img src="/restaurant.png" className="w-16" alt="" />
+        </Link>
 
         {/* Navigation */}
         <nav className="space-x-6">
@@ -30,26 +32,19 @@ export default function RestaurantHeader() {
             Home
           </Link>
           {details ? (
-            <Link
-              href="/profile"
+            <button
               className="text-gray-700 hover:text-blue-600 transition"
+              onClick={handleLogout}
             >
-              Profile
-            </Link>
+              Logout
+            </button>
           ) : (
             <Link
-              href="/signup"
+              href="/restaurant"
               className="text-gray-700 hover:text-blue-600 transition"
             >
               SignUp / Login
             </Link>
-          )}
-          {details ? (
-            <button className="text-gray-700 hover:text-blue-600 transition" onClick={handleLogout}>
-              Logout
-            </button>
-          ) : (
-            ""
           )}
         </nav>
       </div>

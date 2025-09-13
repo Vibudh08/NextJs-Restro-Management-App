@@ -4,9 +4,11 @@ import axios from "axios";
 import { Pencil, Trash2 } from "lucide-react";
 const FoodItemList = ({ onEdit }) => {
   const [details, setDetails] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // fetch food items
   const fetchData = async () => {
+    setLoading(true);
     const restaurantData = JSON.parse(localStorage.getItem("restaurant"));
     if (restaurantData) {
       const resto_id = restaurantData._id;
@@ -17,6 +19,7 @@ const FoodItemList = ({ onEdit }) => {
       console.log(data);
       setDetails(data);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -51,7 +54,13 @@ const FoodItemList = ({ onEdit }) => {
           </tr>
         </thead>
         <tbody>
-          {details.length > 0 ? (
+          {loading ? (
+            <tr>
+              <td colSpan="6" className="text-center p-6 text-gray-500 italic">
+                Loading...
+              </td>
+            </tr>
+          ) : details.length > 0 ? (
             details.map((item, index) => (
               <tr
                 key={index}

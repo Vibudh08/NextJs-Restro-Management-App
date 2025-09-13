@@ -70,7 +70,7 @@ export default function Home() {
 
       {/* Fixed Search Section */}
       <div className="absolute top-[20%] left-1/2 -translate-x-1/2 z-10 w-[700px] max-md:w-[95%] flex flex-col items-center space-y-6">
-        <h1 className="text-white text-4xl font-bold">Food Delivery App</h1>
+        <h1 className="text-white text-4xl font-bold">Restro Management App</h1>
 
         <div className="flex w-full bg-white rounded-lg shadow-md overflow-hidden p-2 gap-2">
           <Select
