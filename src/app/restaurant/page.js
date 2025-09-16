@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import RestaurantHeader from "../_components/RestaurantHeader";
 import RestaurantFooter from "../_components/RestaurantFooter";
 import { useRouter } from "next/navigation";
-import RestaurantLogin from "../_components/RestaurantLogin";
-import RestaurantRegister from "../_components/RestaurantRegister";
+import RestaurantLogin from "../_components/restaurantLogin";
+import RestaurantRegister from "../_components/restaurantRegister";
 
 export default function RestaurantAuth() {
   const router = useRouter();
