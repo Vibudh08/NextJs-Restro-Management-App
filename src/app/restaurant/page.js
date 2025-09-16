@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import RestaurantLogin from "../_components/RestaurantLogin";
-import RestaurantRegister from "../_components/RestaurantRegister";
 import RestaurantHeader from "../_components/RestaurantHeader";
 import RestaurantFooter from "../_components/RestaurantFooter";
 import { useRouter } from "next/navigation";
+import RestaurantLogin from "../_components/RestaurantLogin";
+import RestaurantRegister from "../_components/RestaurantRegister";
 
 export default function RestaurantAuth() {
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function RestaurantAuth() {
         <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md text-center">
           <h1 className="text-2xl font-bold mb-6">Restaurant Login / SignUp</h1>
 
-          {login ? <RestaurantLogin /> : <RestaurantRegister />}
+          {login ? <RestaurantLogin/> : <RestaurantRegister/>}
 
           <button
             onClick={() => setLogin(!login)}
