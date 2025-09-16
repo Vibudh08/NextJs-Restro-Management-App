@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-const restaurantRegister = () => {
+const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -169,4 +169,4 @@ const restaurantRegister = () => {
     </>
   );
 };
-export default restaurantRegister;
+export default Register;
