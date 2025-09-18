@@ -20,7 +20,7 @@ export default function Home() {
 
   const dataFetch = async () => {
     let result = await axios.get(
-      "http://localhost:3000/api/customer/locations"
+      "https://next-js-restro-management-app-6r7s.vercel.app/api/customer/locations"
     );
     setCityName(result.data);
   };
@@ -31,7 +31,8 @@ export default function Home() {
 
   const fetchRestaurant = async () => {
     setLoading(true);
-    let url = "http://localhost:3000/api/customer";
+    let url =
+      "https://next-js-restro-management-app-6r7s.vercel.app/api/customer";
     const params = new URLSearchParams();
 
     if (queryCityName) params.append("location", queryCityName);

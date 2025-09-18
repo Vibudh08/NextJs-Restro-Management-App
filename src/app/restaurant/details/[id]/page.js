@@ -16,7 +16,9 @@ export default function RestaurantDetails() {
 
   const fetchData = async () => {
     setLoading(true);
-    const result = await axios.get(`http://localhost:3000/api/customer/${id}`);
+    const result = await axios.get(
+      `https://next-js-restro-management-app-6r7s.vercel.app/api/customer/${id}`
+    );
     console.log(result);
     setRestaurantData(result.data.data);
     setFoodItems(result.data.foodItems);

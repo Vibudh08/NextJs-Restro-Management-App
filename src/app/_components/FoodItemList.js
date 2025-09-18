@@ -13,7 +13,7 @@ const FoodItemList = ({ onEdit }) => {
     if (restaurantData) {
       const resto_id = restaurantData._id;
       const { data } = await axios.post(
-        "http://localhost:3000/api/restaurant/food/foodList",
+        "https://next-js-restro-management-app-6r7s.vercel.app/api/restaurant/food/foodList",
         { resto_id }
       );
       console.log(data);
@@ -32,7 +32,7 @@ const FoodItemList = ({ onEdit }) => {
 
   const handleDelete = async (id) => {
     const result = await axios.delete(
-      `http://localhost:3000/api/restaurant/food/foodList/${id}`
+      `https://next-js-restro-management-app-6r7s.vercel.app/api/restaurant/food/foodList/${id}`
     );
     if (result) {
       alert("Food item deleted.");

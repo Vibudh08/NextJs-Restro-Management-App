@@ -50,7 +50,7 @@ const RegisterRestaurant = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/restaurant",
+        "https://next-js-restro-management-app-6r7s.vercel.app/api/restaurant",
         userData
       );
 

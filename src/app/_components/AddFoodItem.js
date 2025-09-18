@@ -33,7 +33,7 @@ const AddFoodItem = ({ id, onItemAdded }) => {
     // console.log("Food Item Data:", foodData);
 
     const data = await axios.post(
-      "http://localhost:3000/api/restaurant/food",
+      "https://next-js-restro-management-app-6r7s.vercel.app/api/restaurant/food",
       foodData
     );
     if (data) {
@@ -52,7 +52,7 @@ const AddFoodItem = ({ id, onItemAdded }) => {
     if (id) {
       const fetchItem = async () => {
         const result = await axios.get(
-          `http://localhost:3000/api/restaurant/food/foodList/${id}`
+          `https://next-js-restro-management-app-6r7s.vercel.app/api/restaurant/food/foodList/${id}`
         );
         console.log(result.data);
         let data = result.data;
@@ -68,7 +68,7 @@ const AddFoodItem = ({ id, onItemAdded }) => {
   const handleUpdate = async (id) => {
     const foodData = { name, price, image, desc };
     const result = await axios.post(
-      `http://localhost:3000/api/restaurant/food/foodList/${id}`,
+      `https://next-js-restro-management-app-6r7s.vercel.app/api/restaurant/food/foodList/${id}`,
       foodData
     );
     console.log(result);
