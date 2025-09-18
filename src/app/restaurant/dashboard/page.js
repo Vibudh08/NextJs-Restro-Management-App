@@ -27,8 +27,8 @@ const Page = () => {
   return (
     <>
       <RestaurantHeader />
-      <div className="max-w-5xl mx-auto p-6">
-        <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-10">
+      <div className="max-w-5xl mx-auto p-6 max-md:px-4">
+        <h1 className="text-3xl max-md:text-2xl font-extrabold text-center text-gray-800 mb-10">
           🍴 Welcome to Dashboard
         </h1>
 

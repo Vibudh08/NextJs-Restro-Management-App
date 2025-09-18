@@ -78,7 +78,7 @@ const AddFoodItem = ({ id, onItemAdded }) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-8 bg-white rounded-2xl shadow-lg border border-gray-100">
+    <div className="max-w-lg mx-auto p-8 max-md:p-6 bg-white rounded-2xl shadow-lg border border-gray-100">
       <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">
         {id ? "🍽️ Update Food Item" : "🍽️ Add Food Item"}
       </h2>
