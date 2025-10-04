@@ -17,12 +17,12 @@ const Page = () => {
     setSelectedId(null);
   };
 
-  useEffect(()=>{
-    const data = localStorage.getItem("restaurant")
-    if(!data){
-      router.push("/restaurant")      
+  useEffect(() => {
+    const data = localStorage.getItem("restaurant");
+    if (!data) {
+      router.push("/restaurant");
     }
-  },[])
+  }, []);
 
   return (
     <>
